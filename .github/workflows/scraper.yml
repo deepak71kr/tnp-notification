@@ -2,10 +2,9 @@ name: T&P Notifier
 
 on:
   schedule:
-    # This cron expression runs the workflow every minute.
-    # Note: GitHub Actions documentation states the minimum interval is 5 minutes,
-    # but some schedules might run more frequently. This is for testing only.
-    - cron: '* * * * *'
+    # Runs the job every 30 minutes
+    - cron: '*/30 * * * *'
+  # This event adds the "Run workflow" button to the Actions tab
   workflow_dispatch:
 
 jobs:
@@ -30,6 +29,10 @@ jobs:
         run: |
           npm install --omit=dev
           npm install puppeteer --unsafe-perm=true --allow-root
+      
+      # Added step: Install the Chromium browser
+      - name: Install Chromium
+        run: npx puppeteer browsers install chrome
       
       - name: Run scraper
         run: node index.js
