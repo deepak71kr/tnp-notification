@@ -14,10 +14,14 @@ const PASSWORD = process.env.PASSWORD;
 const LOGIN_PAGE_URL = process.env.LOGIN_PAGE_URL;
 
 async function runScraper() {
-  const browser = await puppeteer.launch({
+  const launchOptions = {
     headless: PUPPETEER_HEADLESS,
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
-  });
+  };
+  if (process.env.PUPPETEER_EXECUTABLE_PATH) {
+    launchOptions.executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
+  }
+  const browser = await puppeteer.launch(launchOptions);
 
   const page = await browser.newPage();
   await page.setViewport({ width: 1280, height: 720 });
