@@ -30,9 +30,10 @@ jobs:
         env:
           PUPPETEER_CACHE_DIR: "${{ github.workspace }}/.cache/puppeteer"
       
+      # Corrected Step: Install Chromium browser using Puppeteer's CLI.
       - name: Install Chromium browser
-        run: node node_modules/puppeteer/install.js
-      
+        run: node node_modules/puppeteer/lib/cli.js browsers install chrome
+        
       - name: Run scraper
         run: node index.js
         env:
