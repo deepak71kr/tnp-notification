@@ -25,15 +25,14 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libgbm-dev libx11-dev libxcomposite-dev libxcursor-dev libxdamage-dev libxext-dev libxfixes-dev libxi-dev libxtst-dev libnss3-dev libglib2.0-0 libasound2t64
 
-      - name: Install npm dependencies
+      - name: Install npm dependencies and Chromium
         run: npm install
         env:
+          # This variable forces Puppeteer to download the browser during npm install,
+          # which is the most reliable way to get it in a CI environment.
+          PUPPETEER_SKIP_DOWNLOAD: false
           PUPPETEER_CACHE_DIR: "${{ github.workspace }}/.cache/puppeteer"
-      
-      # Corrected Step: Install Chromium browser using Puppeteer's CLI.
-      - name: Install Chromium browser
-        run: node node_modules/puppeteer/lib/cli.js browsers install chrome
-        
+
       - name: Run scraper
         run: node index.js
         env:
