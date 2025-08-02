@@ -46,7 +46,9 @@ jobs:
         run: npm install
 
       - name: Install Chromium for Puppeteer
-        run: npx puppeteer install
+        run: |
+          chmod +x ./node_modules/.bin/puppeteer || true
+          npm exec puppeteer install
 
       - name: Run scraper
         run: node index.js
