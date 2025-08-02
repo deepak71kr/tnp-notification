@@ -1,0 +1,45 @@
+name: T&P Notifier
+
+on:
+  schedule:
+    # Runs the job every 30 minutes
+    - cron: '*/30 * * * *'
+
+jobs:
+  run-scraper:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install system dependencies for Puppeteer
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgbm-dev libx11-dev libxcomposite-dev libxcursor-dev libxdamage-dev libxext-dev libxfixes-dev libxi-dev libxtst-dev libnss3-dev libglib2.0-0 libasound2
+
+      - name: Install npm dependencies
+        run: |
+          npm install --omit=dev
+          npm install puppeteer --unsafe-perm=true --allow-root
+      
+      - name: Run scraper
+        run: node index.js
+        env:
+          # Use GitHub secrets for all environment variables
+          USERNAME: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          LOGIN_PAGE_URL: ${{ secrets.LOGIN_PAGE_URL }}
+          TARGET_PAGE_URL: ${{ secrets.TARGET_PAGE_URL }}
+          CHECK_INTERVAL_MINUTES: ${{ secrets.CHECK_INTERVAL_MINUTES }}
+          PUPPETEER_HEADLESS: true
+          PUPPETEER_TIMEOUT: ${{ secrets.PUPPETEER_TIMEOUT }}
+          EMAIL_SERVICE: ${{ secrets.EMAIL_SERVICE }}
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+          RECIPIENT_EMAILS: ${{ secrets.RECIPIENT_EMAILS }}
