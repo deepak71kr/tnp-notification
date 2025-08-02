@@ -28,8 +28,6 @@ jobs:
       - name: Install npm dependencies and Chromium
         run: npm install
         env:
-          # This variable tells Puppeteer where to save the browser files.
-          # Setting it to a local directory in the project prevents permission issues.
           PUPPETEER_CACHE_DIR: "${{ github.workspace }}/.cache/puppeteer"
       
       - name: Run scraper
