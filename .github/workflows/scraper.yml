@@ -2,8 +2,8 @@ name: T&P Notifier
 
 on:
   schedule:
-    # Runs the job every 30 minutes
-    - cron: '*/30 * * * *'
+    # Runs the job every minute for testing purposes
+    - cron: '* * * * *'
   # This event adds the "Run workflow" button to the Actions tab
   workflow_dispatch:
 
@@ -25,12 +25,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libgbm-dev libx11-dev libxcomposite-dev libxcursor-dev libxdamage-dev libxext-dev libxfixes-dev libxi-dev libxtst-dev libnss3-dev libglib2.0-0 libasound2t64
 
-      - name: Install npm dependencies and Chromium
-        run: |
-          npm install
-        env:
-          PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "false"
-
+      - name: Install npm dependencies
+        run: npm install
+      
       - name: Run scraper
         run: node index.js
         env:
