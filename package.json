@@ -1,0 +1,16 @@
+{
+  "name": "tnp-notification",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.1.2",
+    "dotenv": "^17.2.1",
+    "nodemailer": "^7.0.5",
+    "puppeteer": "^24.15.0"
+  }
+}
