@@ -25,10 +25,13 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libgbm-dev libx11-dev libxcomposite-dev libxcursor-dev libxdamage-dev libxext-dev libxfixes-dev libxi-dev libxtst-dev libnss3-dev libglib2.0-0 libasound2t64
 
-      - name: Install npm dependencies and Chromium
+      - name: Install npm dependencies
         run: npm install
         env:
           PUPPETEER_CACHE_DIR: "${{ github.workspace }}/.cache/puppeteer"
+      
+      - name: Install Chromium browser
+        run: node node_modules/puppeteer/install.js
       
       - name: Run scraper
         run: node index.js
