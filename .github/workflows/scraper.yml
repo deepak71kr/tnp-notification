@@ -2,9 +2,9 @@ name: T&P Notifier
 
 on:
   schedule:
-    # This cron expression runs the workflow every minute for testing purposes.
+    # Runs the job every minute for testing purposes
     - cron: '* * * * *'
-  # This event adds the "Run workflow" button to the Actions tab.
+  # This event adds the "Run workflow" button
   workflow_dispatch:
 
 jobs:
@@ -25,13 +25,13 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libgbm-dev libx11-dev libxcomposite-dev libxcursor-dev libxdamage-dev libxext-dev libxfixes-dev libxi-dev libxtst-dev libnss3-dev libglib2.0-0 libasound2t64
 
-      - name: Install npm dependencies
+      - name: Install npm dependencies and Chromium
         run: npm install
-
-      # The key fix: Explicitly install the browser with puppeteer's CLI.
-      - name: Install Chromium browser
-        run: npx puppeteer browsers install chrome
-
+        env:
+          # This variable tells Puppeteer where to save the browser files.
+          # Setting it to a local directory in the project prevents permission issues.
+          PUPPETEER_CACHE_DIR: "${{ github.workspace }}/.cache/puppeteer"
+      
       - name: Run scraper
         run: node index.js
         env:
