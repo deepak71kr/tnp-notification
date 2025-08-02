@@ -2,9 +2,9 @@ name: T&P Notifier
 
 on:
   schedule:
-    # Runs the job every minute for testing purposes
+    # This cron expression runs the workflow every minute for testing purposes.
     - cron: '* * * * *'
-  # This event adds the "Run workflow" button to the Actions tab
+  # This event adds the "Run workflow" button to the Actions tab.
   workflow_dispatch:
 
 jobs:
@@ -27,7 +27,11 @@ jobs:
 
       - name: Install npm dependencies
         run: npm install
-      
+
+      # The key fix: Explicitly install the browser with puppeteer's CLI.
+      - name: Install Chromium browser
+        run: npx puppeteer browsers install chrome
+
       - name: Run scraper
         run: node index.js
         env:
