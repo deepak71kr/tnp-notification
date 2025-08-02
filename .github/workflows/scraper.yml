@@ -50,17 +50,31 @@ jobs:
           chmod +x ./node_modules/.bin/puppeteer || true
           npm exec puppeteer install
 
+      - name: Show Puppeteer executable pather executable path
+        run: node -e "console.log(require('puppeteer').executablePath())"
+        run: echo "PUPPETEER_EXECUTABLE_PATH=$(node -e \"console.log(require('puppeteer').executablePath())\")" >> $GITHUB_ENV
+      - name: Set Puppeteer executable path
+        id: pptr-path
+        run: echo "PUPPETEER_EXECUTABLE_PATH=$(node -e \"console.log(require('puppeteer').executablePath())\")" >> $GITHUB_ENV node index.js
+
       - name: Run scraper
-        run: node index.js
+        run: node index.jsGE_URL }}
         env:
-          USERNAME: ${{ secrets.USERNAME }}
-          PASSWORD: ${{ secrets.PASSWORD }}
+          USERNAME: ${{ secrets.USERNAME }}S }}
+          PASSWORD: ${{ secrets.PASSWORD }}${{ secrets.CHECK_INTERVAL_MINUTES }}
           LOGIN_PAGE_URL: ${{ secrets.LOGIN_PAGE_URL }}
-          TARGET_PAGE_URL: ${{ secrets.TARGET_PAGE_URL }}
-          CHECK_INTERVAL_MINUTES: ${{ secrets.CHECK_INTERVAL_MINUTES }}
+          TARGET_PAGE_URL: ${{ secrets.TARGET_PAGE_URL }}MEOUT }}
+          CHECK_INTERVAL_MINUTES: ${{ secrets.CHECK_INTERVAL_MINUTES }}ICE }}          EMAIL_USER: ${{ secrets.EMAIL_USER }}
           PUPPETEER_HEADLESS: true
           PUPPETEER_TIMEOUT: ${{ secrets.PUPPETEER_TIMEOUT }}
           EMAIL_SERVICE: ${{ secrets.EMAIL_SERVICE }}
-          EMAIL_USER: ${{ secrets.EMAIL_USER }}
-          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+
+          PUPPETEER_EXECUTABLE_PATH: ${{ env.PUPPETEER_EXECUTABLE_PATH }}          RECIPIENT_EMAILS: ${{ secrets.RECIPIENT_EMAILS }}          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          RECIPIENT_EMAILS: ${{ secrets.RECIPIENT_EMAILS }}          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}          EMAIL_USER: ${{ secrets.EMAIL_USER }}          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
           RECIPIENT_EMAILS: ${{ secrets.RECIPIENT_EMAILS }}
+
+      - name: Set up Puppeteer executable path in script
+        run: |
+          if (process.env.PUPPETEER_EXECUTABLE_PATH) {
+            launchOptions.executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
+          }
