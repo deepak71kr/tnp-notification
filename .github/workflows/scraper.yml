@@ -2,9 +2,10 @@ name: T&P Notifier
 
 on:
   schedule:
-    # Runs the job every 30 minutes
-    - cron: '*/30 * * * *'
-  # This event adds the "Run workflow" button to the Actions tab
+    # This cron expression runs the workflow every minute.
+    # Note: GitHub Actions documentation states the minimum interval is 5 minutes,
+    # but some schedules might run more frequently. This is for testing only.
+    - cron: '* * * * *'
   workflow_dispatch:
 
 jobs:
