@@ -3,7 +3,7 @@ name: T&P Notifier
 on:
   schedule:
     # Runs the job every 30 minutes
-    - cron: '*/30 * * * *'
+    - cron: '*/1 * * * *'
 
 jobs:
   run-scraper:
