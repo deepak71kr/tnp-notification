@@ -55,15 +55,18 @@ async function monitorJobPortal() {
       await sendNotification('New Notifications Found', { jobs: [], notifications: newNotificationEntries });
       newContentFound = true;
     }
-
-    if (newContentFound) {
-      // 8. Update the data files with the latest content for the next run's comparison.
-      writeData('previous_jobs', newJobs);
-      writeData('previous_notifications', newNotifications);
-      console.log('Data files updated with the latest content.');
-    } else {
-      console.log('No new content found.');
+    
+    // 8. If no new content is found, send a confirmation email.
+    if (!newContentFound) {
+      console.log('No new content found. Sending confirmation email.');
+      await sendNotification('No New Updates Found', { jobs: [], notifications: [] });
     }
+
+    // 9. Always update the data files with the latest content for the next run's comparison.
+    // This is important even if no changes were found to prevent old "new" content from being resent.
+    writeData('previous_jobs', newJobs);
+    writeData('previous_notifications', newNotifications);
+    console.log('Data files updated with the latest content.');
 
   } catch (error) {
     console.error(`[${new Date().toISOString()}] An error occurred during monitoring:`, error);

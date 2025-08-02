@@ -18,7 +18,11 @@ const transporter = nodemailer.createTransport({
 function createHtmlEmail(subject, newEntries) {
   let html = `<h1>${subject}</h1>`;
 
-  // Add the server readiness message for the initial email.
+  if (subject === 'No New Updates Found') {
+    html += `<p>This is a test notification to confirm that the scraper is running on schedule. No new jobs or notifications were found during this check.</p>`;
+    return html;
+  }
+  
   if (subject === 'Initial Scrape Complete') {
     html += `<p>Your web scraper has been successfully initialized and is ready to monitor the portal. The following is the current content found on the page. You will be notified when new updates are posted.</p>`;
   }
@@ -40,7 +44,7 @@ function createHtmlEmail(subject, newEntries) {
       `;
     });
     html += `</tbody></table>`;
-  } else if (subject !== 'Initial Scrape Complete') {
+  } else if (subject !== 'Initial Scrape Complete' && subject !== 'No New Updates Found') {
     html += `<p>No new jobs found.</p>`;
   }
 
@@ -61,7 +65,7 @@ function createHtmlEmail(subject, newEntries) {
       `;
     });
     html += `</tbody></table>`;
-  } else if (subject !== 'Initial Scrape Complete') {
+  } else if (subject !== 'Initial Scrape Complete' && subject !== 'No New Updates Found') {
     html += `<p>No new notifications found.</p>`;
   }
 
