@@ -51,9 +51,8 @@ jobs:
           npm exec puppeteer install
 
       - name: Set Puppeteer executable path
-        id: pptr-path
-        run: echo "PUPPETEER_EXECUTABLE_PATH=$(node -e \"console.log(require('puppeteer').executablePath())\")" >> $GITHUB_ENV
-
+        run: node -e "console.log('PUPPETEER_EXECUTABLE_PATH=' + require('puppeteer').executablePath())" >> $GITHUB_ENV
+        
       - name: Run scraper
         run: node index.js
         env:
