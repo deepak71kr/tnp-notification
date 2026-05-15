@@ -48,6 +48,9 @@ async function monitorJobPortal() {
       await sendNotification('New Job Listings Found', { jobs: newJobEntries, notifications: [] });
       newContentFound = true;
     }
+    else{
+      console.log("No new jobs found. Skipping email notification.");
+    }
 
     // 7. If new notifications are found, log them and send a notification.
     if (newNotificationEntries.length > 0) {
@@ -55,12 +58,10 @@ async function monitorJobPortal() {
       await sendNotification('New Notifications Found', { jobs: [], notifications: newNotificationEntries });
       newContentFound = true;
     }
-    
-    // 8. If no new content is found, send a confirmation email.
-    if (!newContentFound) {
-      console.log('No new content found. Sending confirmation email.');
-      await sendNotification('No New Updates Found', { jobs: [], notifications: [] });
+    else{
+      console.log("No new Notification found. Skipping email notification.");
     }
+  // deleted no new content found
 
     // 9. Always update the data files with the latest content for the next run's comparison.
     // This is important even if no changes were found to prevent old "new" content from being resent.
