@@ -3,7 +3,7 @@ name: T&P Notifier
 on:
   schedule:
     # Runs the job every minute for testing purposes
-    - cron: '* * * * *'
+    - cron: '*/30 * * * *'
   workflow_dispatch:
 
 jobs:
