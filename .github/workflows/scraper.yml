@@ -69,12 +69,3 @@ jobs:
           EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
           RECIPIENT_EMAILS: ${{ secrets.RECIPIENT_EMAILS }}
           PUPPETEER_EXECUTABLE_PATH: ${{ env.PUPPETEER_EXECUTABLE_PATH }}
-          PUPPETEER_EXECUTABLE_PATH: ${{ env.PUPPETEER_EXECUTABLE_PATH }}          RECIPIENT_EMAILS: ${{ secrets.RECIPIENT_EMAILS }}          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}          EMAIL_USER: ${{ secrets.EMAIL_USER }}
-          RECIPIENT_EMAILS: ${{ secrets.RECIPIENT_EMAILS }}          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}          EMAIL_USER: ${{ secrets.EMAIL_USER }}          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
-          RECIPIENT_EMAILS: ${{ secrets.RECIPIENT_EMAILS }}
-
-      - name: Set up Puppeteer executable path in script
-        run: |
-          if (process.env.PUPPETEER_EXECUTABLE_PATH) {
-            launchOptions.executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
-          }
