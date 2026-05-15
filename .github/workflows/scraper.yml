@@ -52,7 +52,7 @@ jobs:
 
       - name: Set Puppeteer executable path
         run: node -e "console.log('PUPPETEER_EXECUTABLE_PATH=' + require('puppeteer').executablePath())" >> $GITHUB_ENV
-        
+
       - name: Run scraper
         run: node index.js
         env:
